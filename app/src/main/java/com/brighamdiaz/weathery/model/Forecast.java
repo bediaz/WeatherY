@@ -2,6 +2,7 @@ package com.brighamdiaz.weathery.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.Map;
  *
  * POJO for Yahoo API forecast
  */
-public class Forecast {
+public class Forecast implements Serializable {
     public class Results {
         public class Channel {
             public class Location {
