@@ -2,7 +2,10 @@ package com.brighamdiaz.weathery;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import com.brighamdiaz.weathery.adapter.ForecastAdapter;
 import com.brighamdiaz.weathery.model.Forecast;
 import com.brighamdiaz.weathery.model.ForecastResponse;
 
@@ -22,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final RecyclerView recyclerView = (RecyclerView)findViewById(R.id.movies_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         WeatherAPIInterface apiService = WeatherAPIClient.getClient().create(WeatherAPIInterface.class);
 
         // insert items into a linked hash map to preserve insertion order. Do not set encoded=true
@@ -35,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ForecastResponse> call, Response<ForecastResponse> response) {
                 weather = response.body().getWeatherResult();
-                // TODO: pass data model to adapter
+                recyclerView.setAdapter(new ForecastAdapter(weather, R.layout.list_item_10_day_forecast, getApplicationContext()));
             }
 
             @Override

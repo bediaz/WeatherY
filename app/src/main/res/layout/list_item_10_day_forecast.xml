@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,31 +16,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="dayOfWeek"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:textSize="18dp"/>
     <TextView
         android:id="@+id/txtCondition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="mostlySunny"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
 
-        android:layout_toLeftOf="@id/llMore"
-        android:id="@+id/llHighLow">
-        <TextView
-            android:id="@+id/txtHigh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HIGH"/>
-        <TextView
-            android:id="@+id/txtLow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LOW"/>
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/llMore"
         android:layout_width="wrap_content"
@@ -60,6 +41,27 @@
             android:gravity="center"
             android:text=">"/>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:id="@+id/llHighLow"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/llMore"
+        android:layout_toStartOf="@+id/llMore">
+        <TextView
+            android:id="@+id/txtHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HIGH"/>
+        <TextView
+            android:id="@+id/txtLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW"/>
     </LinearLayout>
 
 </RelativeLayout>
