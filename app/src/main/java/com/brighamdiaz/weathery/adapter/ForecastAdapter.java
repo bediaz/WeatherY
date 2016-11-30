@@ -1,19 +1,21 @@
 package com.brighamdiaz.weathery.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.brighamdiaz.weathery.model.Forecast;
-
-import java.util.List;
 import com.brighamdiaz.weathery.R;
+import com.brighamdiaz.weathery.fragment.ItemFragment;
+import com.brighamdiaz.weathery.model.Forecast;
 import com.brighamdiaz.weathery.model.Forecast.Results.Channel.Item.ForecastData;
 
-import org.w3c.dom.Text;
+import java.util.List;
 
 /**
  * Created by Brigham on 11/29/2016.
@@ -49,16 +51,34 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
     @Override
     public ForecastViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(rowNumber, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(rowNumber, parent, false);
         return new ForecastViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ForecastViewHolder holder, int position) {
+    public void onBindViewHolder(final ForecastViewHolder holder, final int position) {
         holder.txtDayOfWeek.setText(forecastData.get(position).getDay());
         holder.txtCondition.setText(forecastData.get(position).getText());
         holder.txtHigh.setText(forecastData.get(position).getHigh());
         holder.txtLow.setText(forecastData.get(position).getLow());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // ItemFragment is expecting forecast data
+                if (forecast != null) {
+                    ItemFragment itemFragment = ItemFragment.newInstance(position, forecast);
+                    // could use an interface listener to make MainActivity.java do fragment transaction
+                    FragmentActivity activity = (FragmentActivity) holder.itemView.getContext();
+                    FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame, itemFragment)
+                            .addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            }
+        });
+
     }
 
     @Override
