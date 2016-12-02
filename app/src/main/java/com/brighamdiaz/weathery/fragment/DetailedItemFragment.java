@@ -12,30 +12,28 @@ import android.view.ViewGroup;
 import com.brighamdiaz.weathery.R;
 import com.brighamdiaz.weathery.adapter.ForecastDetailedAdapter;
 import com.brighamdiaz.weathery.model.Forecast;
-import com.brighamdiaz.weathery.model.Forecast.Results.Channel.Item.ForecastData;
 
 /**
  * Created by Brigham on 11/27/2016.
  *
  * A fragment representing a list of Items.
  */
-public class ItemFragment extends Fragment {
-    private ForecastData forecastDayDetail;
+public class DetailedItemFragment extends Fragment {
     private Forecast forecast;
+    private int position;
     private static final String ARG_POSITION = "position";
     private static final String ARG_FORECAST = "forecast";
 
-    public ItemFragment() {
+    public DetailedItemFragment() {
     }
 
     /**
      * Factory method creates a new instance of fragment using provided forecast data.
      *
-     * @param forecast initialized forecast data
      * @return a new instance of fragment to pass to transaction
      */
-    public static ItemFragment newInstance(int position, Forecast forecast) {
-        ItemFragment fragment = new ItemFragment();
+    public static DetailedItemFragment newInstance(Forecast forecast, int position) {
+        DetailedItemFragment fragment = new DetailedItemFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_POSITION, position);
         args.putSerializable(ARG_FORECAST, forecast);
@@ -50,15 +48,14 @@ public class ItemFragment extends Fragment {
 
         Bundle args = getArguments();
         if(args != null) {
-            int position = args.getInt(ARG_POSITION);
-            forecast = (Forecast) args.getSerializable(ARG_FORECAST);
-            forecastDayDetail = forecast.getResults().getChannel().getItem().getForecast().get(position);
+            this.forecast = (Forecast) args.getSerializable(ARG_FORECAST);
+            this.position = args.getInt(ARG_POSITION);
 
             // Set the adapter for the layout
             Context context = rootView.getContext();
             final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.forecast_detail_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new ForecastDetailedAdapter(forecastDayDetail, R.layout.list_item_details, getContext()));
+            recyclerView.setAdapter(new ForecastDetailedAdapter(forecast, position, R.layout.list_item_details, getContext()));
         }
         return rootView;
     }
