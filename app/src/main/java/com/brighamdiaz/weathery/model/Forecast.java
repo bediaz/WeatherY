@@ -2,6 +2,11 @@ package com.brighamdiaz.weathery.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +18,33 @@ import java.util.Map;
  *
  * POJO for Yahoo API forecast
  */
-public class Forecast implements Serializable {
-    public class Results {
-        public class Channel {
-            public class Location {
+public class Forecast implements Serializable, Cloneable {
+    public Forecast clone() {
+        try {
+            return (Forecast) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
+
+    public Forecast deepClone() {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(baos);
+            oos.writeObject(this);
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bais);
+            return (Forecast) ois.readObject();
+        } catch (IOException e) {
+            return null;
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+    public class Results implements Serializable{
+        public class Channel implements Serializable{
+            public class Location implements Serializable{
 
                 private String city;
                 private String country;
@@ -86,7 +114,7 @@ public class Forecast implements Serializable {
                 }
 
             }
-            public class Units {
+            public class Units implements Serializable{
 
                 private String distance;
                 private String pressure;
@@ -175,7 +203,7 @@ public class Forecast implements Serializable {
                 }
 
             }
-            public class Wind {
+            public class Wind implements Serializable {
 
                 private String chill;
                 private String direction;
@@ -245,7 +273,7 @@ public class Forecast implements Serializable {
                 }
 
             }
-            public class Astronomy {
+            public class Astronomy implements Serializable {
 
                 private String sunrise;
                 private String sunset;
@@ -275,6 +303,7 @@ public class Forecast implements Serializable {
                  *     The sunset
                  */
                 public String getSunset() {
+                    // bug in yahoo weather api showing "sunset": "5:0 pm"
                     return sunset;
                 }
 
@@ -296,7 +325,7 @@ public class Forecast implements Serializable {
                 }
 
             }
-            public class Atmosphere {
+            public class Atmosphere implements Serializable {
 
                 private String humidity;
                 private String pressure;
@@ -310,7 +339,7 @@ public class Forecast implements Serializable {
                  *     The humidity
                  */
                 public String getHumidity() {
-                    return humidity;
+                    return humidity+"%";
                 }
 
                 /**
@@ -346,6 +375,19 @@ public class Forecast implements Serializable {
                  *     The rising
                  */
                 public String getRising() {
+                    try {
+                        int risingCode = Integer.parseInt(rising);
+                        switch(risingCode) {
+                            case 0:
+                                return "steady";
+                            case 1:
+                                return "rising";
+                            case 2:
+                                return "falling";
+                        }
+                    } catch(NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                     return rising;
                 }
 
@@ -385,7 +427,7 @@ public class Forecast implements Serializable {
                 }
 
             }
-            public class Image {
+            public class Image implements Serializable {
 
                 private String title;
                 private String width;
@@ -493,8 +535,8 @@ public class Forecast implements Serializable {
                 }
 
             }
-            public class Item {
-                public class Condition {
+            public class Item implements Serializable{
+                public class Condition implements Serializable{
 
                     private String code;
                     private String date;
@@ -584,7 +626,7 @@ public class Forecast implements Serializable {
 
                 }
 
-                public class ForecastData {
+                public class ForecastData implements Serializable {
 
                     private String code;
                     private String date;
@@ -593,6 +635,8 @@ public class Forecast implements Serializable {
                     private String low;
                     private String text;
                     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+
 
                     /**
                      *
@@ -673,7 +717,7 @@ public class Forecast implements Serializable {
                      *     The high
                      */
                     public String getHigh() {
-                        return high + "°F";
+                        return high;
                     }
 
                     /**
@@ -691,7 +735,7 @@ public class Forecast implements Serializable {
                      *     The low
                      */
                     public String getLow() {
-                        return low + "°F";
+                        return low;
                     }
 
                     /**
@@ -730,7 +774,7 @@ public class Forecast implements Serializable {
                     }
 
                 }
-                public class Guid {
+                public class Guid implements Serializable{
 
                     private String isPermaLink;
                     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
