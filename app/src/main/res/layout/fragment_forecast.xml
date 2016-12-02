@@ -1,13 +1,26 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.brighamdiaz.weathery.fragment.ForecastFragment">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".fragment.ForecastFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/forecast_current_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"     android:scrollbars="vertical"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/forecast_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical"/>
-
+    </LinearLayout>
 </FrameLayout>

@@ -1,79 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:background="@drawable/big_card">
+    android:clickable="true">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:orientation="vertical"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp">
-    <ImageView
-        android:id="@+id/imgSky"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-    <TextView
-        android:id="@+id/txtDayOfWeek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="dayOfWeek"
-        android:textSize="18dp"/>
-    <TextView
-        android:id="@+id/txtCondition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="mostlySunny"/>
-    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/llMore"
+        android:background="@color/colorPrimary" />
 
-    <LinearLayout
+    <GridLayout
         android:id="@+id/llMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
-        >
-        <TextView
-            android:id="@+id/txtMore"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/imgRightArrow"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+    </GridLayout>
+
+    <LinearLayout
+        android:id="@+id/llLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/imgWeatherIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/weather_clear" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text=">"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/txtDayOfWeek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monday"
+                android:textAllCaps="false"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:id="@+id/txtCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mostly Sunny" />
+        </LinearLayout>
+
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/llMore">
 
-        android:id="@+id/llHighLow"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/llMore"
-        android:layout_toStartOf="@+id/llMore">
         <TextView
             android:id="@+id/txtHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HIGH"/>
+            android:layout_gravity="center"
+            android:text="High: 90°F"
+            android:textColor="@android:color/black"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/txtLow"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LOW"/>
-    </LinearLayout>
+            android:text="Low: -90°F"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
+    </LinearLayout>
 </RelativeLayout>

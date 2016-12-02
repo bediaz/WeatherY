@@ -1,46 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <ImageView
-        android:id="@+id/imgWeatherIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-    <TextView
-        android:id="@+id/txtDate"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="25dp">
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="date"
-        android:textSize="18dp"/>
-    <TextView
-        android:id="@+id/txtDayOfWeek"
+        android:orientation="vertical"
+        android:id="@+id/llDate"
+        android:layout_margin="10dp">
+        <TextView
+            android:id="@+id/txtDayOfWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="dayOfWeek"
+            android:textSize="18dp" />
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="date"
+            android:textSize="18dp" />
+        </LinearLayout>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dayOfWeek"
-        android:textSize="18dp"/>
-    <TextView
-        android:id="@+id/txtCondition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sunny"/>
-    <TextView
-        android:id="@+id/txtConditionStr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="mostly cloudy (day)"/>
+        android:orientation="vertical"
+        android:id="@+id/llForecast"
+        android:layout_below="@id/llDate"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignLeft="@id/llDate"
+        android:layout_alignStart="@id/llDate">
+
+
+
+        <TextView
+            android:id="@+id/lblForecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="Forecast" />
+
+        <ImageView
+            android:id="@+id/imgWeatherIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:srcCompat="@drawable/weather_clear"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/txtCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sunny" />
+
+        <TextView
+            android:id="@+id/txtConditionStr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mostly cloudy (day)" />
+
         <TextView
             android:id="@+id/txtHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="HIGH"/>
+            android:text="HIGH" />
+
         <TextView
             android:id="@+id/txtLow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LOW"/>
+            android:text="LOW" />
     </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/llDate"
+        android:layout_toRightOf="@id/llForecast"
+        android:layout_toEndOf="@id/llForecast"
+        android:id="@+id/llWind"
+        android:layout_alignTop="@id/llForecast">
+        <TextView
+            android:id="@+id/lblWind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="Wind" />
+        <TextView
+            android:id="@+id/txtChill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+        <TextView
+            android:id="@+id/txtDirection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+        <TextView
+            android:id="@+id/txtSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/llForecast"
+        android:layout_toRightOf="@+id/llAstronomy"
+        android:layout_toEndOf="@+id/llAstronomy"
+        android:layout_alignLeft="@id/llWind"
+        android:id="@+id/llAtmosphere">
+        <TextView
+            android:id="@+id/lblAtmosphere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="Atmosphere" />
+        <TextView
+            android:id="@+id/txtHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+        <TextView
+            android:id="@+id/txtPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+        <TextView
+            android:id="@+id/txtRising"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+        <TextView
+            android:id="@+id/txtVisibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/llForecast"
+        android:id="@+id/llAstronomy"
+        android:layout_alignTop="@id/llAtmosphere"
+        android:layout_alignLeft="@id/llForecast">
+        <TextView
+            android:id="@+id/lblAstronomy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:text="Astronomy" />
+        <TextView
+            android:id="@+id/txtSunrise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+        <TextView
+            android:id="@+id/txtSunset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+        </LinearLayout>
+
+
 </RelativeLayout>
