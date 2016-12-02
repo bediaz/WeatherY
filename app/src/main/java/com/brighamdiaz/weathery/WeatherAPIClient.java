@@ -24,13 +24,31 @@ public class WeatherAPIClient {
     public static final String YAHOO_URL = "https://query.yahooapis.com/v1/public/";
     private static Retrofit mRetrofit;
     private OnForecastReceivedListener mListener;
+    private static String city = "nome";
+    private static String state = "AK";
+
+    public static String getCity() {
+        return city;
+    }
+    public static String getState() {
+        return state;
+    }
+    public static void setCity(String cityName) {
+        city = cityName;
+    }
+
+    public static void setState(String stateName) {
+        state = stateName;
+    }
+
 
     /**
      * Create a new Retrofit Yahoo weather client
+     *
      * @return Yahoo weather client
      */
     public static Retrofit getClient() {
-        if(mRetrofit == null) {
+        if (mRetrofit == null) {
             mRetrofit = new Retrofit.Builder()
                     .baseUrl(YAHOO_URL)
                     .addConverterFactory(GsonConverterFactory.create())
@@ -41,13 +59,13 @@ public class WeatherAPIClient {
     }
 
     public void requestForecast(Context context) {
-        if(context instanceof OnForecastReceivedListener) {
+        if (context instanceof OnForecastReceivedListener) {
             mListener = (OnForecastReceivedListener) context;
         }
         WeatherAPIInterface apiService = WeatherAPIClient.getClient().create(WeatherAPIInterface.class);
         // insert items into a linked hash map to preserve insertion order. Do not set encoded=true
         Map<String, String> query = new LinkedHashMap<>();
-        query.put("q", "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"nome, AK\")");
+        query.put("q", String.format("select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"%s, %s\")", city, state));
         query.put("format", "json");
         query.put("env", "store://datatables.org/alltableswithkeys");
 
@@ -55,7 +73,7 @@ public class WeatherAPIClient {
         call.enqueue(new Callback<ForecastResponse>() {
             @Override
             public void onResponse(Call<ForecastResponse> call, Response<ForecastResponse> response) {
-                if(mListener != null) {
+                if (mListener != null) {
                     mListener.onWeatherDataReceived(response.body().getWeatherResult());
                 }
             }
@@ -71,5 +89,4 @@ public class WeatherAPIClient {
     public interface OnForecastReceivedListener {
         void onWeatherDataReceived(Forecast forecast);
     }
-
 }
