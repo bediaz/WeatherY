@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brighamdiaz.weathery.R;
@@ -46,7 +47,7 @@ public class ForecastDetailedAdapter extends RecyclerView.Adapter<ForecastDetail
         TextView lblAtmosphere;
         TextView lblAstronomy;
 
-
+        ImageView imgWeatherIcon;
         public ForecastViewHolder(View itemView) {
             super(itemView);
             txtDate = (TextView) itemView.findViewById(R.id.txtDate);
@@ -69,6 +70,7 @@ public class ForecastDetailedAdapter extends RecyclerView.Adapter<ForecastDetail
             lblAtmosphere = (TextView) itemView.findViewById(R.id.lblAtmosphere);
             lblAstronomy = (TextView) itemView.findViewById(R.id.lblAstronomy);
             lblWind = (TextView) itemView.findViewById(R.id.lblWind);
+            imgWeatherIcon = (ImageView)itemView.findViewById(R.id.imgWeatherIcon);
         }
     }
 
@@ -89,12 +91,14 @@ public class ForecastDetailedAdapter extends RecyclerView.Adapter<ForecastDetail
     @Override
     public void onBindViewHolder(ForecastViewHolder holder, int position) {
         if (this.position == 0) { // expecting data from CurrentForecastAdapter
+            String conditionCode = forecastData.get(this.position).getCode();
+            holder.imgWeatherIcon.setImageResource(ConditionCode.getWeatherResId(true, conditionCode));
             holder.txtDayOfWeek.setText(forecastData.get(this.position).getDay());
             holder.txtCondition.setText(forecastData.get(this.position).getText());
             holder.txtHigh.setText("High: " + forecastData.get(this.position).getHigh());
             holder.txtLow.setText("Low: " + forecastData.get(this.position).getLow());
             holder.txtDate.setText(forecastData.get(this.position).getDate());
-            holder.txtConditionStr.setText(ConditionCode.getConditionString(forecastData.get(this.position).getCode()));
+            holder.txtConditionStr.setText(ConditionCode.getConditionString(conditionCode));
             holder.txtChill.setText(channel.getWind().getChill() + "°" + channel.getUnits().getTemperature());
             holder.txtDirection.setText(channel.getWind().getDirection() + "°");
             holder.txtSpeed.setText(channel.getWind().getSpeed() + channel.getUnits().getSpeed());
@@ -105,12 +109,14 @@ public class ForecastDetailedAdapter extends RecyclerView.Adapter<ForecastDetail
             holder.txtSunrise.setText(channel.getAstronomy().getSunrise());
             holder.txtSunset.setText(channel.getAstronomy().getSunset());
         } else {// expecting data from ForecastListAdapter
+            String conditionCode = forecastData.get(this.position-1).getCode();
+            holder.imgWeatherIcon.setImageResource(ConditionCode.getWeatherResId(true, conditionCode));
             holder.txtDayOfWeek.setText(forecastData.get(this.position - 1).getDay());
             holder.txtCondition.setText(forecastData.get(this.position - 1).getText());
             holder.txtHigh.setText("High: " + forecastData.get(this.position - 1).getHigh());
             holder.txtLow.setText("Low: " + forecastData.get(this.position - 1).getLow());
             holder.txtDate.setText(forecastData.get(this.position - 1).getDate());
-            holder.txtConditionStr.setText(ConditionCode.getConditionString(forecastData.get(this.position - 1).getCode()));
+            holder.txtConditionStr.setText(ConditionCode.getConditionString(conditionCode));
             // using View.VISIBILITY and View.GONE isn't having the expected effect. Blanking text for now.
             holder.lblAtmosphere.setText("");
             holder.lblAstronomy.setText("");
