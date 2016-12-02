@@ -1,17 +1,18 @@
 package com.brighamdiaz.weathery.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.brighamdiaz.weathery.R;
 import com.brighamdiaz.weathery.fragment.ItemFragment;
+import com.brighamdiaz.weathery.model.ConditionCode;
 import com.brighamdiaz.weathery.model.Forecast;
 import com.brighamdiaz.weathery.model.Forecast.Results.Channel.Item.ForecastData;
 
@@ -32,6 +33,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         TextView txtCondition;
         TextView txtHigh;
         TextView txtLow;
+        ImageView imgWeatherIcon;
 
 
         public ForecastViewHolder(View itemView) {
@@ -40,6 +42,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
             txtCondition = (TextView)itemView.findViewById(R.id.txtCondition);
             txtHigh = (TextView) itemView.findViewById(R.id.txtHigh);
             txtLow   = (TextView) itemView.findViewById(R.id.txtLow);
+            imgWeatherIcon = (ImageView) itemView.findViewById(R.id.imgWeatherIcon);
         }
     }
 
@@ -57,10 +60,12 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
     @Override
     public void onBindViewHolder(final ForecastViewHolder holder, final int position) {
-        holder.txtDayOfWeek.setText(forecastData.get(position).getDay());
-        holder.txtCondition.setText(forecastData.get(position).getText());
-        holder.txtHigh.setText(forecastData.get(position).getHigh());
-        holder.txtLow.setText(forecastData.get(position).getLow());
+        ForecastData f = forecastData.get(position);
+        holder.txtDayOfWeek.setText(f.getDay());
+        holder.txtCondition.setText(f.getText());
+        holder.txtHigh.setText(f.getHigh());
+        holder.txtLow.setText(f.getLow());
+        holder.imgWeatherIcon.setImageResource(ConditionCode.getWeatherResId(true, f.getCode()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

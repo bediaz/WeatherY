@@ -58,7 +58,7 @@ public class ForecastDetailedAdapter extends RecyclerView.Adapter<ForecastDetail
         holder.txtHigh.setText(forecastData.getHigh());
         holder.txtLow.setText(forecastData.getLow());
         holder.txtDate.setText(forecastData.getDate());
-        holder.txtConditionStr.setText(ConditionCode.getConditionString(Integer.valueOf(forecastData.getCode())));
+        holder.txtConditionStr.setText(ConditionCode.getConditionString(forecastData.getCode()));
     }
 
     @Override

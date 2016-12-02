@@ -636,6 +636,25 @@ public class Forecast implements Serializable {
                      *     The day
                      */
                     public String getDay() {
+                        return formattedDay(day);
+                    }
+
+                    private String formattedDay(String day) {
+                        if(day.toUpperCase().equals("Mon")) {
+                            return "Monday";
+                        } else if(day.toUpperCase().contains("TUE")) {
+                            return "Tuesday";
+                        } else if(day.toUpperCase().contains("WED")) {
+                            return "Wednesday";
+                        } else if(day.toUpperCase().contains("THU")) {
+                            return "Thursday";
+                        } else if(day.toUpperCase().contains("FRI")) {
+                            return "Friday";
+                        } else if(day.toUpperCase().contains("SAT")) {
+                            return "Saturday";
+                        } else if(day.toUpperCase().contains("SUN")) {
+                            return "Sunday";
+                        }
                         return day;
                     }
 
@@ -654,7 +673,7 @@ public class Forecast implements Serializable {
                      *     The high
                      */
                     public String getHigh() {
-                        return high;
+                        return high + "°F";
                     }
 
                     /**
@@ -672,7 +691,7 @@ public class Forecast implements Serializable {
                      *     The low
                      */
                     public String getLow() {
-                        return low;
+                        return low + "°F";
                     }
 
                     /**
