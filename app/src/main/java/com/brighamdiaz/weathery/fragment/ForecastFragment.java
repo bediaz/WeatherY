@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 
 import com.brighamdiaz.weathery.R;
 import com.brighamdiaz.weathery.WeatherAPIClient;
-import com.brighamdiaz.weathery.adapter.ForecastAdapter;
+import com.brighamdiaz.weathery.adapter.CurrentForecastAdapter;
+import com.brighamdiaz.weathery.adapter.ForecastListAdapter;
 import com.brighamdiaz.weathery.model.Forecast;
 
 /**
@@ -20,7 +21,8 @@ import com.brighamdiaz.weathery.model.Forecast;
 public class ForecastFragment extends Fragment {
 
     private Forecast forecast;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerForecastView;
+    private RecyclerView recyclerCurrentView;
     private static final String ARG_FORECAST = "forecast";
 
     /**
@@ -55,15 +57,23 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_forecast, container, false);
-        recyclerView = (RecyclerView)rootView.findViewById(R.id.forecast_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+
+        recyclerForecastView = (RecyclerView)rootView.findViewById(R.id.forecast_recycler_view);
+        recyclerForecastView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
+
+        recyclerCurrentView = (RecyclerView)rootView.findViewById(R.id.forecast_current_view);
+        recyclerCurrentView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
         if(forecast == null) {
             // main activity should recreate fragment with data
             new WeatherAPIClient().requestForecast(getContext());
         } else {
             // no need to request forecast again, just update the view
-            recyclerView.setAdapter(new ForecastAdapter(forecast, R.layout.list_item_10_day_forecast, getContext()));
+            recyclerCurrentView.setAdapter(new CurrentForecastAdapter(forecast, R.layout.forecast_big_card, getContext()));
+            Forecast forecastClone = forecast.deepClone();
+            forecastClone.getResults().getChannel().getItem().getForecast().remove(0);
+            recyclerForecastView.setAdapter(new ForecastListAdapter(forecastClone, R.layout.list_item_10_day_forecast, getContext()));
+
         }
         return rootView;
     }
