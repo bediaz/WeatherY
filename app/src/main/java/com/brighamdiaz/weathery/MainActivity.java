@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements WeatherAPIClient.
 
     @Override
     protected void onResume() {
+        super.onResume();
         requestForecast();
     }
     /**
